@@ -1,0 +1,35 @@
+// Variables
+
+$color-white: #FFFFFF;
+$color-grey: #808080;
+$color-red: #ff0000;
+
+$bg-black: #000000;
+$bg-image: url(../assets/background/stars.png) repeat, url(../assets/background/bg.png) repeat;
+$bg-image-circle: url(../assets/svg/circle.svg) no-repeat;
+
+
+$font: 'Open Sans', sans-serif;
+$letter-spacing: 0.088em;
+
+// desktop
+
+$desktop-header_1: 31px;
+$desktop-header_2: 31px;
+$desktop-paragraf_1: 18px;
+$desktop-paragraf_2: 18px;
+
+
+// tablet
+
+$tablet-header_1: 31px;
+$tablet-header_2: 25px;
+$tablet-paragraf_1: 18px;
+$tablet-paragraf_2: 15px;
+
+// mobile
+
+$mobile-header_1: 25px;
+$mobile-header_2: 18px;
+$mobile-paragraf_1: 15px;
+$mobile-paragraf_2: 11px;
