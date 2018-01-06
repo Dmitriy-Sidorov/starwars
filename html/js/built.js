@@ -307,20 +307,22 @@ window.onload = function () {
                 'data-person-id="' + parentArray[a] + '" ' +
                 'data-post="' + postArray[a] + '" ' +
                 'data-name="' + nameArray[a] + '" ' +
-                '<div class="col-lg-6 person hidden">' +
-                '<div id="indent' + (a + 1) + '" class="indent">' +
-                '<div class="number">' +
-                '<span id="length' + (a + 1) + '">' + (countArray[i] - 1) + '</span>' +
-                '</div>' +
-                '</div>' +
-                '<div class="ava">' +
-                '<img src="assets/avatars/' + military[a].image + '" alt="' + military[a].name + '">' +
-                '<div class="img-hover"></div>' +
-                '</div>' +
-                '<div class="name">' +
-                '<h2>' + military[a].name + '</h2>' +
-                '<span>' + military[a].post + '</span>' +
-                '</div>' +
+                'class="col-lg-6 person hidden">' +
+                    '<div class="cursor">'+
+                        '<div id="indent' + (a + 1) + '" class="indent">' +
+                            '<div class="number">' +
+                                '<span id="length' + (a + 1) + '">' + (countArray[i] - 1) + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="ava">' +
+                            '<img src="assets/avatars/' + military[a].image + '" alt="' + military[a].name + '">' +
+                            '<div class="img-hover"></div>' +
+                        '</div>' +
+                        '<div class="name">' +
+                            '<h2>' + military[a].name + '</h2>' +
+                            '<span>' + military[a].post + '</span>' +
+                        '</div>' +
+                    '</div>'+
                 '</div>';
         }
         document.getElementById('outpriority').innerHTML = outBase + outPriority;
