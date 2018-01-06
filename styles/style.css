@@ -6530,9 +6530,6 @@ span {
     .main .section-two .person .cursor {
       justify-content: flex-start;
       cursor: pointer; }
-      @media (min-width: 992px) {
-        .main .section-two .person .cursor {
-          padding: 0 87px; } }
     .main .section-two .person .indent .number {
       display: flex;
       justify-content: center;
