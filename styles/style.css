@@ -6385,7 +6385,7 @@ span {
   .column {
     flex-direction: column; } }
 
-.logo, .priority-person, .person {
+.logo, .priority-person, .person > .cursor {
   display: flex;
   align-items: center;
   justify-content: center; }
@@ -6514,8 +6514,6 @@ span {
         .main .section-one .navigation #next {
           right: 15px; } }
   .main .section-two .person {
-    justify-content: flex-start;
-    cursor: pointer;
     margin-bottom: 33px;
     /*&:nth-child(even) { //╨║╨╛╤Б╤В╤Л╨╗╤М
       @include media-breakpoint-up (lg) {
@@ -6529,6 +6527,12 @@ span {
       .main .section-two .person {
         margin-bottom: 78px;
         padding: 0 87px; } }
+    .main .section-two .person .cursor {
+      justify-content: flex-start;
+      cursor: pointer; }
+      @media (min-width: 992px) {
+        .main .section-two .person .cursor {
+          padding: 0 87px; } }
     .main .section-two .person .indent .number {
       display: flex;
       justify-content: center;

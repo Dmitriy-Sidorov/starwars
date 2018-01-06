@@ -36,7 +36,7 @@ span {
   }
 }
 
-.logo, .priority-person, .person {
+.logo, .priority-person, .person > .cursor {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,9 +228,6 @@ span {
 
   .section-two {
     .person {
-      justify-content: flex-start;
-      cursor: pointer;
-
       @include media-breakpoint-up (xs) {
         margin-bottom: 33px;
       }
@@ -240,6 +237,14 @@ span {
       @include media-breakpoint-up (lg) {
         margin-bottom: 78px;
         padding: 0 87px;
+      }
+
+      .cursor {
+        justify-content: flex-start;
+        cursor: pointer;
+        @include media-breakpoint-up (lg) {
+          padding: 0 87px;
+        }
       }
 
       .indent {
