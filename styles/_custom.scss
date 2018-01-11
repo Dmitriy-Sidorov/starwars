@@ -345,11 +345,6 @@ span {
           color: $color-white;
         }
       }
-      /*&:nth-child(even) { //костыль
-        @include media-breakpoint-up (lg) {
-          padding-left: 87px;
-        }
-      }*/
     }
   }
 }
