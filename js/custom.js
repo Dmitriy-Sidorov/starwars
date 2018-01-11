@@ -536,6 +536,7 @@ window.onload = function () {
 
                         general.classList.add('hidden');
                         man.classList.add('hidden');
+                        next.classList.remove('hidden');
 
                         if (data.personId === String(soldier)) {
                             if (data.personId === String(max - 1)) {
