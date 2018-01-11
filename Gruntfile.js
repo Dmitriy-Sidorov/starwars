@@ -23,17 +23,12 @@ module.exports = function (grunt) {
         postcss: {
             prefix: {
                 options: {
-                map: true,
                     processors: [
-                    require('autoprefixer')(
                         require('autoprefixer')({
                             browsers: ['last 20 version', 'ie 9', 'ie 8']
                         })
-                    ),
-                    require('cssnano')
                     ]
                 },
-            style: {
                 files: [
                     {
                         src: './styles/style.css',
