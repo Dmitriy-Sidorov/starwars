@@ -330,7 +330,6 @@ window.onload = function () {
     }
 
     starwars(); // сборка
-    console.log(String(5 - 1));
 
     for (i = 0; i < military.length; i++) {
 
@@ -650,10 +649,8 @@ window.onload = function () {
             if (result) {
                 // Прячем стрелочку
                 prev.classList.add('hidden');
-                console.log('спрятали');
             } else {
                 prev.classList.remove('hidden');
-                console.log('не спрятали')
             }
         };
 
