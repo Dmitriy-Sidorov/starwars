@@ -225,43 +225,6 @@ window.onload = function () {
     var nameArray = [];
     var postArray = [];
     var countArray = [];
-    var rankArray = [];
-    var j = 1;
-
-    // сортирвка по рангу
-    for (i = 0; i < military.length; i++) {
-        if (military[i].post === 'Galactic Emperor') {
-            rankArray[i] = 1;
-        }
-        if (military[i].post === 'Supreme Commander') {
-            rankArray[i] = 2;
-        }
-        if (military[i].post === 'Grand Moff') {
-            rankArray[i] = 3;
-        }
-        if (military[i].post === 'Director') {
-            rankArray[i] = 4;
-        }
-        if (military[i].post === 'Admiral') {
-            rankArray[i] = 5;
-        }
-        if (military[i].post === 'Captain') {
-            rankArray[i] = 6;
-        }
-        if (military[i].post === 'Commander') {
-            rankArray[i] = 7;
-        }
-        if (military[i].post === 'Admiral' && military[i].name === 'Jah Batut') {
-            rankArray[i] = 8;
-        }
-        if (military[i].post === 'Ensign') {
-            rankArray[i] = 9;
-        }
-        if (military[i].post === 'Soldier') {
-            rankArray[i] = 9 + j;
-            j++
-        }
-    }
 
     for (i = 0; i < military.length; i++) {
         countArray[i] = military[i].id;
@@ -273,14 +236,14 @@ window.onload = function () {
 
         for (i = 0; i < military.length; i++) {
 
-            var a = rankArray.indexOf(i + 1); // расположение персонажей по рангу
+            //var a = rankArray.indexOf(i + 1); // расположение персонажей по рангу
 
-            if (military[a].parent === undefined) {
-                military[a].parent = 0;
+            if (military[i].parent === undefined) {
+                military[i].parent = 0;
             }
-            parentArray[a] = military[a].parent;
-            nameArray[a] = military[a].name;
-            postArray[a] = military[a].post;
+            parentArray[i] = military[i].parent;
+            nameArray[i] = military[i].name;
+            postArray[i] = military[i].post;
 
 
             outBase =
@@ -295,39 +258,39 @@ window.onload = function () {
                 '</div>';
 
             outPriority +=
-                '<div id="priority' + military[a].id + '" ' +
-                'data-id="' + military[a].id + '" ' +
-                'data-priority-id="' + parentArray[a] + '" ' +
-                'data-post="' + postArray[a] + '" ' +
-                'data-name="' + nameArray[a] + '" ' +
+                '<div id="priority' + military[i].id + '" ' +
+                'data-id="' + military[i].id + '" ' +
+                'data-priority-id="' + parentArray[i] + '" ' +
+                'data-post="' + postArray[i] + '" ' +
+                'data-name="' + nameArray[i] + '" ' +
                 'class="hidden">' +
                 '<div class="ava">' +
-                '<img src="assets/avatars/' + military[a].image + '" alt="' + military[a].name + '">' +
+                '<img src="assets/avatars/' + military[i].image + '" alt="' + military[i].name + '">' +
                 '</div>' +
-                '<h1>' + military[a].name + '</h1>' +
-                '<span>' + military[a].post + '</span>' +
+                '<h1>' + military[i].name + '</h1>' +
+                '<span>' + military[i].post + '</span>' +
                 '</div>';
 
             out +=
-                '<div id="soldier' + military[a].id + '" ' +
-                'data-id="' + military[a].id + '" ' +
-                'data-person-id="' + parentArray[a] + '" ' +
-                'data-post="' + postArray[a] + '" ' +
-                'data-name="' + nameArray[a] + '" ' +
+                '<div id="soldier' + military[i].id + '" ' +
+                'data-id="' + military[i].id + '" ' +
+                'data-person-id="' + parentArray[i] + '" ' +
+                'data-post="' + postArray[i] + '" ' +
+                'data-name="' + nameArray[i] + '" ' +
                 'class="col-lg-6 person hidden">' +
                     '<div class="cursor">'+
-                        '<div id="indent' + (a + 1) + '" class="indent">' +
+                        '<div id="indent' + (i + 1) + '" class="indent">' +
                             '<div class="number">' +
-                                '<span id="length' + (a + 1) + '">' + (countArray[i] - 1) + '</span>' +
+                                '<span id="length' + (i + 1) + '">' + (countArray[i] - 1) + '</span>' +
                             '</div>' +
                         '</div>' +
                         '<div class="ava">' +
-                            '<img src="assets/avatars/' + military[a].image + '" alt="' + military[a].name + '">' +
+                            '<img src="assets/avatars/' + military[i].image + '" alt="' + military[i].name + '">' +
                             '<div class="img-hover"></div>' +
                         '</div>' +
                         '<div class="name">' +
-                            '<h2>' + military[a].name + '</h2>' +
-                            '<span>' + military[a].post + '</span>' +
+                            '<h2>' + military[i].name + '</h2>' +
+                            '<span>' + military[i].post + '</span>' +
                         '</div>' +
                     '</div>'+
                 '</div>';
