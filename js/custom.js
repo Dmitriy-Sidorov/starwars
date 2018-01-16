@@ -362,9 +362,9 @@ window.onload = function () {
         а у солдата, как низшего ранга, не может быть подчиненных*/
         var indent = document.getElementById('indent' + military[i].id);
         var length = document.getElementById('length' + military[i].id);
-        if (dataPerson.post === "Soldier") {
+        /*if (dataPerson.post === "Soldier") {
             indent.classList.add('hidden');
-        }
+        }*/
 
         var logo = document.getElementById('logo'); // восстановление главного экрана
         logo.onclick = function () {
