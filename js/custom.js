@@ -226,6 +226,7 @@ window.onload = function () {
     var nameArray = [];
     var postArray = [];
     var countArray = [];
+    var currentId = '';
 
     for (i = 0; i < military.length; i++) {
         countArray[i] = military[i].id;
@@ -544,6 +545,13 @@ window.onload = function () {
 
         // Проверяет есть ли передыдущий элемент в списке данного ранга
         function checkForPrevSibling(currentId) {
+            for (i = military.length - 1; i >= 0; i--) {
+                if (i < currentId) {
+                    if (military[currentId].parent === parentArray[i]) {
+                        return document.querySelector('#priority' + military[i].id);
+                    }
+                }
+            }
             for (i = military.length - 1; i >= currentId; i--) {
                 if (i !== currentId) {
                     if (military[currentId].parent === parentArray[i]) {
@@ -551,7 +559,6 @@ window.onload = function () {
                     }
                 }
             }
-            return false;
         }
 
         // Проверяет есть ли следующий элемент в списке данного ранга
@@ -581,8 +588,8 @@ window.onload = function () {
                     dataMain = mainPrev.dataset;
 
                 if (mainPrev.classList.contains('hidden') === false) {
-                    var currentId = i;
-                    var result = checkForNextSibling(currentId);
+                    currentId = i;
+                    var result = checkForPrevSibling(currentId);
                     if (result) {
                         mainPrev.classList.add('hidden');
                         result.classList.remove('hidden');
@@ -592,6 +599,7 @@ window.onload = function () {
                         var base = document.querySelector('#priority0');
                         base.classList.remove('hidden');
                         console.log('не получил результат');
+                        break;
                     }
                 }
             }
@@ -605,7 +613,7 @@ window.onload = function () {
                 dataMainNext = mainNext.dataset;
 
                 if (mainNext.classList.contains('hidden') === false) {
-                    var currentId = i;
+                    currentId = i;
                     var result = checkForNextSibling(currentId);
                     if (result) {
                         mainNext.classList.add('hidden');
@@ -616,6 +624,7 @@ window.onload = function () {
                         var base = document.querySelector('#priority0');
                         base.classList.remove('hidden');
                         console.log('не получил результат');
+                        break;
                     }
                 }
             }
