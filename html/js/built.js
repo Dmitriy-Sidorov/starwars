@@ -218,6 +218,7 @@ window.onload = function () {
         }*/
     ];
     var i;
+    var j;
     var outPriority = '';
     var out = '';
     var outBase = '';
@@ -543,30 +544,7 @@ window.onload = function () {
 
         // Проверяет есть ли передыдущий элемент в списке данного ранга
         function checkForPrevSibling(currentId) {
-            var currentSolderIndex = null;
-            for (i = 0; i < military.length + 1; i++) {
-                if (military[i].id === currentId) {
-                    currentSolderIndex = i;
-                    break;
-                }
-            }
-            if (currentSolderIndex === military.length - 1) {
-                return true;
-            }
-            for (i = 0; i < currentSolderIndex; i++) {
-                if (military[currentSolderIndex].parent === parentArray[i]) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // Проверяет есть ли следующий элемент в списке данного ранга
-        function checkForNextSibling(currentId) {
-            if (currentId === military.length - 1) {
-                return true;
-            }
-            for (i = military.length - 1; i >= 0; i--) {
+            for (i = military.length - 1; i >= currentId; i--) {
                 if (i !== currentId) {
                     if (military[currentId].parent === parentArray[i]) {
                         return document.querySelector('#priority' + military[i].id);
@@ -576,64 +554,55 @@ window.onload = function () {
             return false;
         }
 
+        // Проверяет есть ли следующий элемент в списке данного ранга
+        function checkForNextSibling(currentId) {
+            for (i = currentId; i < military.length; i++) {
+                if (i > currentId) {
+                    if (military[currentId].parent === parentArray[i]) {
+                        return document.querySelector('#priority' + military[i].id);
+                    }
+                }
+            }
+            for (i = 0; i < currentId; i++) {
+                if (i !== currentId) {
+                    if (military[currentId].parent === parentArray[i]) {
+                        return document.querySelector('#priority' + military[i].id);
+                    }
+                }
+            }
+        }
+
         // переход на предыдущего персонажа
         prev.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var peopleNext = document.querySelector('#soldier' + military[i].id),
-                    dataNext = peopleNext.dataset;
-                var mainNext = document.querySelector('#priority' + military[i].id),
-                    dataMain = mainNext.dataset;
+                var peoplePrev = document.querySelector('#soldier' + military[i].id),
+                    dataPrev = peoplePrev.dataset;
+                var mainPrev = document.querySelector('#priority' + military[i].id),
+                    dataMain = mainPrev.dataset;
 
-                var soldierId = military[i].id;
-
-
-                if (dataMain.id === String(soldierId)
-                    && mainNext.classList.contains('hidden') === false) { //найти открытый объект
-                    for (i = 0; i < military.length; i++) {
-
-                        var people = document.querySelector('#soldier' + military[i].id),
-                            data = people.dataset;
-                        var priorityNext = document.querySelector('#priority' + military[i].id),
-                            dataPriority = priorityNext.dataset;
-
-
-                        if (dataPriority.id === String((soldierId - 1))) {
-                            priorityNext.classList.remove('hidden');
-                            for (i = 0; i < military.length; i++) {
-                                priorityNext = document.querySelector('#priority' + military[i].id);
-                                dataPriority = priorityNext.dataset;
-                                if (dataPriority.id === String((soldierId))) {
-                                    priorityNext.classList.add('hidden');
-                                    break;
-                                }
-                            }
-                            break;
-                        }
+                if (mainPrev.classList.contains('hidden') === false) {
+                    var currentId = i;
+                    var result = checkForNextSibling(currentId);
+                    if (result) {
+                        mainPrev.classList.add('hidden');
+                        result.classList.remove('hidden');
+                        console.log('получил результат');
+                        break;
+                    } else {
+                        var base = document.querySelector('#priority0');
+                        base.classList.remove('hidden');
+                        console.log('не получил результат');
                     }
-                    break;
                 }
-            }
-
-            var currentId = Number(dataNext.id) - 1;
-            var result = checkForPrevSibling(currentId);
-            var prev = document.getElementById('prev');
-            var next = document.getElementById('next');
-            next.classList.remove('hidden');
-            if (result) {
-                // Прячем стрелочку
-                prev.classList.add('hidden');
-            } else {
-                prev.classList.remove('hidden');
             }
         };
 
         //переход на следующего персонажа
         next.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var peopleNext = document.querySelector('#soldier' + military[i].id),
-                    dataNext = peopleNext.dataset;
+                var peopleNext = document.querySelector('#soldier' + military[i].id);
                 var mainNext = document.querySelector('#priority' + military[i].id),
-                    dataMain = mainNext.dataset;
+                dataMainNext = mainNext.dataset;
 
                 if (mainNext.classList.contains('hidden') === false) {
                     var currentId = i;
@@ -651,79 +620,6 @@ window.onload = function () {
                 }
             }
         };
-
-
-        /*next.onclick = function () {
-            for (i = 0; i < military.length; i++) {
-                var peopleNext = document.querySelector('#soldier' + military[i].id),
-                    dataNext = peopleNext.dataset;
-                var mainNext = document.querySelector('#priority' + military[i].id),
-                    dataMain = mainNext.dataset;
-
-                var soldierId = military[i].id;
-
-
-                if (dataMain.id === String(soldierId)
-                    && mainNext.classList.contains('hidden') === false) { //найти открытый объект
-                    for (i = 0; i < military.length; i++) {
-
-                        var people = document.querySelector('#soldier' + military[i].id),
-                            data = people.dataset;
-                        var priorityNext = document.querySelector('#priority' + military[i].id),
-                            dataPriority = priorityNext.dataset;
-
-                        if (Number(data.personId) > Number(dataMain.priorityId)
-                            && mainNext.classList.contains('hidden') === false
-                            && people.classList.contains('hidden') === false) {
-
-                            if (dataMain.id === String(soldierId)) {
-                                priorityNext.classList.remove('hidden');
-                                for (i = 0; i < military.length; i++) {
-                                    priorityNext = document.querySelector('#priority' + military[i].id);
-                                    dataPriority = priorityNext.dataset;
-                                    if (dataPriority.id === String(soldierId)) {
-                                        priorityNext.classList.add('hidden');
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-
-                        } else if (data.personId === dataMain.priorityId
-                            && mainNext.classList.contains('hidden') === false
-                            && people.classList.contains('hidden') === false) {
-
-                            if (dataPriority.id === String((soldierId + 1))) {
-                                priorityNext.classList.remove('hidden');
-                                for (i = 0; i < military.length; i++) {
-                                    priorityNext = document.querySelector('#priority' + military[i].id);
-                                    dataPriority = priorityNext.dataset;
-                                    if (dataPriority.id === String((soldierId))) {
-                                        priorityNext.classList.add('hidden');
-                                        break;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-
-            var currentId = Number(dataNext.id) + 1;
-            var result = checkForNextSibling(currentId);
-            var next = document.getElementById('next');
-            var prev = document.getElementById('prev');
-            prev.classList.remove('hidden');
-            if (result) {
-                // Прячем стрелочку
-                next.classList.add('hidden');
-            } else {
-                next.classList.remove('hidden');
-            }
-        };*/
-
     }
 };
 
