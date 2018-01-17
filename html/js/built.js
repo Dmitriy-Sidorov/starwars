@@ -330,9 +330,37 @@ window.onload = function () {
                 person.classList.remove('hidden');
             }
         }
+        //количество подчиненных
+        countChild ();
     }
 
     mainScreen(); // сборка главного экрана
+
+    function countChild () {
+        var x = [];
+        var z = [];
+        for (i = 0; i < military.length; i++) {
+            var chosenPerson = _$('#soldier' + military[i].id),
+                dataChosen = chosenPerson.dataset;
+            for (i = 0; i < military.length; i++) {
+                var person = _$('#soldier' + military[i].id),
+                    dataPerson = person.dataset;
+                if (person.classList.contains('hidden') === false) {
+                    x[i] = military[i].id;
+                }
+                if (person.classList.contains('hidden')
+                    && dataPerson.personId > dataChosen.personId) {
+                    z[i] = military[i].id;
+                }
+            }
+        }
+        x = x.filter(Number);
+        z = z.filter(Number);
+        var y = x.length;
+        var j = z.length;
+        console.log('j:' + j);
+        console.log('y:' + y);
+    }
 
     for (i = 0; i < military.length; i++) {
 
@@ -426,6 +454,8 @@ window.onload = function () {
                     }
                 }
             }
+            //количество подчиненных
+            countChild ();
         };
 
         //переход на уровень выше
@@ -568,6 +598,7 @@ window.onload = function () {
             }
         };
     }
+
 };
 
 
