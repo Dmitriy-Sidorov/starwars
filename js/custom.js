@@ -370,11 +370,26 @@ window.onload = function () {
     function presenceOfChildren(thisId) {
         var indentXXX = _$('#indent' + military[thisId].id);
         var priority = _$('#priority' + military[thisId].id);
+        var person = _$('#soldier' + military[thisId].id),
+            dataPerson = person.dataset;
         if (indentXXX.classList.contains('hidden')
             && priority.classList.contains('hidden') === false) {
             for (i = 0; i < military.length; i++) {
                 var personThis = _$('#soldier' + military[i].id);
                 personThis.classList.add('hidden');
+            }
+        } else {
+            var chief = Number(dataPerson.parentId);
+            var subordinate = chief + 1;
+            for (i = 0; i < military.length; i++) {
+                personThis = _$('#soldier' + military[i].id);
+                var dataPersonThis = personThis.dataset;
+                if (dataPerson.parentId === String(chief)) {
+                    personThis.classList.add('hidden');
+                    if (dataPersonThis.parentId === String(subordinate)) {
+                        personThis.classList.remove('hidden');
+                    }
+                }
             }
         }
     }
@@ -391,7 +406,7 @@ window.onload = function () {
 
         //проверка количества подчиненных
         var indent = _$('#indent' + military[i].id);
-        if (dataPerson.name === 'Darth Sidius' || dataPerson.parentId === String(max)) {
+        if (dataPerson.name === 'Darth Sidius' || dataPerson.name === 'Allin Prohq' || dataPerson.parentId === String(max)) {
             indent.classList.add('hidden');
         }
 
@@ -418,25 +433,11 @@ window.onload = function () {
                 }
                 for (i = 0; i < military.length; i++) {
                     var priority = _$('#priority' + military[i].id);
-                    var person = _$('#soldier' + military[i].id),
-                        dataPerson = person.dataset;
                     // открыть персонажа в шапке
                     if (this.id === 'soldier' + military[i].id) {
                         var thisId = i;
                         priority.classList.remove('hidden');
-                        var chief = Number(dataPerson.parentId);
-                        var subordinate = chief + 1;
-                        for (i = 0; i < military.length; i++) {
-                            var personThis = _$('#soldier' + military[i].id),
-                                dataPersonThis = personThis.dataset;
-                            if (dataPerson.parentId === String(chief)) {
-                                personThis.classList.add('hidden');
-                                if (dataPersonThis.parentId === String(subordinate)) {
-                                    personThis.classList.remove('hidden');
-                                }
-                            }
-                        }
-                        //проверка наличия подчиненных
+                        //выведение и проверка наличия подчиненных
                         presenceOfChildren(thisId);
                     }
                 }
@@ -484,14 +485,16 @@ window.onload = function () {
             for (i = military.length - 1; i >= 0; i--) {
                 if (i < currentId) {
                     if (military[currentId].parent === parentArray[i]) {
-                        return _$('#priority' + military[i].id);
+                        var personId = i;
+                        return [_$('#priority' + military[i].id), personId];
                     }
                 }
             }
             for (i = military.length - 1; i >= currentId; i--) {
                 if (i !== currentId) {
                     if (military[currentId].parent === parentArray[i]) {
-                        return _$('#priority' + military[i].id);
+                        personId = i;
+                        return [_$('#priority' + military[i].id), personId];
                     }
                 }
             }
@@ -503,14 +506,16 @@ window.onload = function () {
             for (i = currentId; i < military.length; i++) {
                 if (i > currentId) {
                     if (military[currentId].parent === parentArray[i]) {
-                        return _$('#priority' + military[i].id);
+                        var personId = i;
+                        return [_$('#priority' + military[i].id), personId];
                     }
                 }
             }
             for (i = 0; i < currentId; i++) {
                 if (i !== currentId) {
                     if (military[currentId].parent === parentArray[i]) {
-                        return _$('#priority' + military[i].id);
+                        personId = i;
+                        return [_$('#priority' + military[i].id), personId];
                     }
                 }
             }
@@ -524,9 +529,10 @@ window.onload = function () {
                 if (priority.classList.contains('hidden') === false) {
                     currentId = i;
                     var result = checkForPrevSibling(currentId);
-                    if (result) {
+                    if (result[0]) {
                         priority.classList.add('hidden');
-                        result.classList.remove('hidden');
+                        result[0].classList.remove('hidden');
+                        presenceOfChildren(result[1]);
                         break;
                     } else {
                         break;
@@ -542,9 +548,10 @@ window.onload = function () {
                 if (priority.classList.contains('hidden') === false) {
                     currentId = i;
                     var result = checkForNextSibling(currentId);
-                    if (result) {
+                    if (result[0]) {
                         priority.classList.add('hidden');
-                        result.classList.remove('hidden');
+                        result[0].classList.remove('hidden');
+                        presenceOfChildren(result[1]);
                         break;
                     } else {
                         break;
