@@ -208,21 +208,14 @@ window.onload = function () {
             post: "Soldier",
             image: "stromtrooper.png",
             parent: 4
-        },
+        }/*,
         {
             id: 31,
-            name: "KN-555",
+            name: "KN-55",
             post: "Soldier",
             image: "darthvader.png",
             parent: 5
-        },
-        {
-            id: 32,
-            name: "Jah Batut",
-            post: "Admiral",
-            image: "jahbatut.png",
-            parent: 6
-        }
+        }*/
     ];
     var i;
     var parentArray = [];
@@ -310,7 +303,6 @@ window.onload = function () {
             var back = _$('#back');
             var prev = _$('#prev');
             var next = _$('#next');
-            var max = Math.max.apply(null, parentArray);
             var min = Math.min.apply(null, parentArray);
 
             if (dataBase.priorityId) {
@@ -369,9 +361,6 @@ window.onload = function () {
 
 
     for (i = 0; i < military.length; i++) {
-
-        var base = _$('#priority' + i),
-            dataBase = base.dataset;
         var person = _$('#soldier' + military[i].id),
             dataPerson = person.dataset;
         var back = _$('#back');
@@ -403,31 +392,30 @@ window.onload = function () {
                 }
                 for (i = 0; i < military.length; i++) {
                     var priorityAll = _$('#priority' + military[i].id);
-                    var charactersAll = _$('#soldier' + military[i].id);
+                    var personAll = _$('#soldier' + military[i].id);
                     if (priorityAll.id) {
                         priorityAll.classList.add('hidden'); // скрыть всех приоритетных
                     }
-                    if (charactersAll.id) {
-                        charactersAll.classList.add('hidden'); // скрыть всех подчиненных
+                    if (personAll.id) {
+                        personAll.classList.add('hidden'); // скрыть всех подчиненных
                     }
                 }
                 for (i = 0; i < military.length; i++) {
                     var priority = _$('#priority' + military[i].id);
-                    var characters = _$('#soldier' + military[i].id),
-                        data = characters.dataset;
+                    var person = _$('#soldier' + military[i].id),
+                        data = person.dataset;
                     // открыть персонажа в шапке
-                    if (this.id === ('soldier' + military[i].id)) {
+                    if (this.id === 'soldier' + military[i].id) {
                         priority.classList.remove('hidden');
                         var soldier = Number(data.personId);
                         var subordinate = soldier + 1;
-
                         for (i = 0; i < military.length; i++) {
-                            var charactersThis = _$('#soldier' + military[i].id),
-                                dataThis = charactersThis.dataset;
+                            var personThis = _$('#soldier' + military[i].id),
+                                dataThis = personThis.dataset;
                             if (data.personId === String(soldier)) {
-                                charactersThis.classList.add('hidden');
+                                personThis.classList.add('hidden');
                                 if (dataThis.personId === String(subordinate)) {
-                                    charactersThis.classList.remove('hidden');
+                                    personThis.classList.remove('hidden');
                                 }
                             }
                         }
@@ -451,8 +439,7 @@ window.onload = function () {
                     && peoplePrev.classList.contains('hidden') === false) { // найти открытые объекты
 
                     for (i = 0; i < military.length; i++) {
-                        var general = _$('#priority' + i),
-                            dataGeneral = general.dataset;
+                        var general = _$('#priority' + i);
                         var man = _$('#soldier' + military[i].id),
                             dataMan = man.dataset;
 
