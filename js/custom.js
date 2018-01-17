@@ -401,28 +401,24 @@ window.onload = function () {
                 for (i = 0; i < military.length; i++) {
                     var priorityAll = _$('#priority' + military[i].id);
                     var personAll = _$('#soldier' + military[i].id);
-                    if (priorityAll.id) {
-                        priorityAll.classList.add('hidden'); // скрыть всех приоритетных
-                    }
-                    if (personAll.id) {
-                        personAll.classList.add('hidden'); // скрыть всех подчиненных
-                    }
+                    priorityAll.classList.add('hidden'); // скрыть всех приоритетных
+                    personAll.classList.add('hidden'); // скрыть всех подчиненных
                 }
                 for (i = 0; i < military.length; i++) {
                     var priority = _$('#priority' + military[i].id);
                     var person = _$('#soldier' + military[i].id),
-                        data = person.dataset;
+                        dataPerson = person.dataset;
                     // открыть персонажа в шапке
                     if (this.id === 'soldier' + military[i].id) {
                         priority.classList.remove('hidden');
-                        var soldier = Number(data.parentId);
-                        var subordinate = soldier + 1;
+                        var chief = Number(dataPerson.parentId);
+                        var subordinate = chief + 1;
                         for (i = 0; i < military.length; i++) {
                             var personThis = _$('#soldier' + military[i].id),
-                                dataThis = personThis.dataset;
-                            if (data.parentId === String(soldier)) {
+                                dataPersonThis = personThis.dataset;
+                            if (dataPerson.parentId === String(chief)) {
                                 personThis.classList.add('hidden');
-                                if (dataThis.parentId === String(subordinate)) {
+                                if (dataPersonThis.parentId === String(subordinate)) {
                                     personThis.classList.remove('hidden');
                                 }
                             }
@@ -468,7 +464,7 @@ window.onload = function () {
             }
         };
 
-        // Проверяет есть ли передыдущий элемент в списке данного ранга
+        // Ищет есть ли передыдущий элемент в списке данного уровня
         function checkForPrevSibling(currentId) {
             for (i = military.length - 1; i >= 0; i--) {
                 if (i < currentId) {
@@ -486,7 +482,7 @@ window.onload = function () {
             }
         }
 
-        // Проверяет есть ли следующий элемент в списке данного ранга
+        // Ищет есть ли следующий элемент в списке данного уровня
         function checkForNextSibling(currentId) {
             for (i = currentId; i < military.length; i++) {
                 if (i > currentId) {
@@ -507,19 +503,13 @@ window.onload = function () {
         // переход на предыдущего персонажа
         prev.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var mainPrev = _$('#priority' + military[i].id);
-                if (mainPrev.classList.contains('hidden') === false) {
+                var priority = _$('#priority' + military[i].id);
+                if (priority.classList.contains('hidden') === false) {
                     currentId = i;
                     var result = checkForPrevSibling(currentId);
                     if (result) {
-                        mainPrev.classList.add('hidden');
+                        priority.classList.add('hidden');
                         result.classList.remove('hidden');
-                        console.log('получил результат');
-                        break;
-                    } else {
-                        var base = _$('#priority0');
-                        base.classList.remove('hidden');
-                        console.log('не получил результат');
                         break;
                     }
                 }
@@ -529,24 +519,17 @@ window.onload = function () {
         //переход на следующего персонажа
         next.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var mainNext = _$('#priority' + military[i].id);
-                if (mainNext.classList.contains('hidden') === false) {
+                var priority = _$('#priority' + military[i].id);
+                if (priority.classList.contains('hidden') === false) {
                     currentId = i;
                     var result = checkForNextSibling(currentId);
                     if (result) {
-                        mainNext.classList.add('hidden');
+                        priority.classList.add('hidden');
                         result.classList.remove('hidden');
-                        console.log('получил результат');
-                        break;
-                    } else {
-                        var base = _$('#priority0');
-                        base.classList.remove('hidden');
-                        console.log('не получил результат');
                         break;
                     }
                 }
             }
         };
     }
-}
-;
+};
