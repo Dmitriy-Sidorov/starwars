@@ -480,6 +480,7 @@ window.onload = function () {
                     }
                 }
             }
+            return false;
         }
 
         // Ищет есть ли следующий элемент в списке данного уровня
@@ -498,6 +499,7 @@ window.onload = function () {
                     }
                 }
             }
+            return false;
         }
 
         // переход на предыдущего персонажа
@@ -510,6 +512,8 @@ window.onload = function () {
                     if (result) {
                         priority.classList.add('hidden');
                         result.classList.remove('hidden');
+                        break;
+                    } else {
                         break;
                     }
                 }
@@ -526,6 +530,8 @@ window.onload = function () {
                     if (result) {
                         priority.classList.add('hidden');
                         result.classList.remove('hidden');
+                        break;
+                    } else {
                         break;
                     }
                 }
