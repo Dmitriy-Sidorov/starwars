@@ -208,25 +208,32 @@ window.onload = function () {
             post: "Soldier",
             image: "stromtrooper.png",
             parent: 4
-        }/*,
+        },
         {
             id: 31,
-            name: "KN-55",
+            name: "KN-555",
             post: "Soldier",
             image: "darthvader.png",
             parent: 5
-        }*/
+        },
+        {
+            id: 32,
+            name: "Jah Batut",
+            post: "Admiral",
+            image: "jahbatut.png",
+            parent: 6
+        }
     ];
     var i;
-    var outPriority = '';
-    var out = '';
-    var outBase = '';
     var parentArray = [];
     var nameArray = [];
     var postArray = [];
     var currentId = '';
 
     function starwars() {
+        var outPriority = '';
+        var out = '';
+        var outBase = '';
         for (i = 0; i < military.length; i++) {
             if (military[i].parent === undefined) {
                 military[i].parent = 0;
@@ -341,9 +348,6 @@ window.onload = function () {
     }
     function countChild(parent) {
         var countArray = [];
-        /*for (i = 0; i < military.length; i++) {
-            var chosenPerson = _$('#soldier' + military[i].id),
-                dataChosen = chosenPerson.dataset;*/
         for (i = 0; i < military.length; i++) {
             var person = _$('#soldier' + military[i].id),
                 dataPerson = person.dataset;
@@ -352,7 +356,6 @@ window.onload = function () {
                 countArray[i] = military[i].id;
             }
         }
-        /*}*/
         countArray = countArray.filter(Number);
         var countArrayLength = countArray.length;
         for (i = 0; i < military.length; i++) {
@@ -395,7 +398,6 @@ window.onload = function () {
                     base.classList.add('hidden');
                     //открыть навигацию
                     back.classList.remove('hidden');
-
                     prev.classList.remove('hidden');
                     next.classList.remove('hidden');
                 }
@@ -429,31 +431,6 @@ window.onload = function () {
                                 }
                             }
                         }
-
-                        //перейти на подчиненных
-                        /* if (data.post !== "Soldier") {
-                             prev.classList.add('hidden');
-                             for (i = 0; i < military.length; i++) {
-                                 var charactersThis = _$('#soldier' + military[i].id),
-                                     dataThis = charactersThis.dataset;
-                                 if (data.personId === String(soldier)) {
-                                     charactersThis.classList.add('hidden');
-                                     if (dataThis.personId === String(subordinate)) {
-                                         charactersThis.classList.remove('hidden');
-                                     }
-                                 }
-                             }
-                         } else {
-                             for (i = 0; i < military.length; i++) {
-                                 var charactersElse = _$('#soldier' + military[i].id),
-                                     dataElse = charactersElse.dataset;
-                                 if (dataElse.personId === String(soldier)) {
-                                     charactersElse.classList.remove('hidden');
-                                 }
-                           }
-                             // убирать нажатого персонажа, у которо нет подчиненных, из списка
-                            characters.classList.add('hidden');
-                         }*/
                     }
                 }
             }
