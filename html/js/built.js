@@ -367,6 +367,18 @@ window.onload = function () {
         }
     }
 
+    function presenceOfChildren(thisId) {
+        var indentXXX = _$('#indent' + military[thisId].id);
+        var priority = _$('#priority' + military[thisId].id);
+        if (indentXXX.classList.contains('hidden')
+            && priority.classList.contains('hidden') === false) {
+            for (i = 0; i < military.length; i++) {
+                var personThis = _$('#soldier' + military[i].id);
+                personThis.classList.add('hidden');
+            }
+        }
+    }
+
 
     for (i = 0; i < military.length; i++) {
         var person = _$('#soldier' + military[i].id),
@@ -410,6 +422,7 @@ window.onload = function () {
                         dataPerson = person.dataset;
                     // открыть персонажа в шапке
                     if (this.id === 'soldier' + military[i].id) {
+                        var thisId = i;
                         priority.classList.remove('hidden');
                         var chief = Number(dataPerson.parentId);
                         var subordinate = chief + 1;
@@ -423,6 +436,8 @@ window.onload = function () {
                                 }
                             }
                         }
+                        //проверка наличия подчиненных
+                        presenceOfChildren(thisId);
                     }
                 }
             }
