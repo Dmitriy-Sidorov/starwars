@@ -208,14 +208,21 @@ window.onload = function () {
             post: "Soldier",
             image: "stromtrooper.png",
             parent: 4
-        }/*,
+        },
         {
             id: 31,
             name: "KN-55",
             post: "Soldier",
             image: "darthvader.png",
             parent: 5
-        }*/
+        },
+        {
+            id: 32,
+            name: "Jah Batut",
+            post: "Admiral",
+            image: "jahbatut.png",
+            parent: 6
+        }
     ];
     var i;
     var parentArray = [];
@@ -237,7 +244,7 @@ window.onload = function () {
 
             outBase =
                 '<div id="priority' + (military[0].id - 1) + '" ' +
-                'data-priority-id="' + (parentArray[0] - 1) + '" ' +
+                'data-parent-id="' + (parentArray[0] - 1) + '" ' +
                 'class="hidden">' +
                 '<div class="ava">' +
                 '<img src="assets/avatars/empire.png" alt="Galactic Empire">' +
@@ -249,7 +256,7 @@ window.onload = function () {
             outPriority +=
                 '<div id="priority' + military[i].id + '" ' +
                 'data-id="' + military[i].id + '" ' +
-                'data-priority-id="' + parentArray[i] + '" ' +
+                'data-parent-id="' + parentArray[i] + '" ' +
                 'data-post="' + postArray[i] + '" ' +
                 'data-name="' + nameArray[i] + '" ' +
                 'class="hidden">' +
@@ -263,7 +270,7 @@ window.onload = function () {
             out +=
                 '<div id="soldier' + military[i].id + '" ' +
                 'data-id="' + military[i].id + '" ' +
-                'data-person-id="' + parentArray[i] + '" ' +
+                'data-parent-id="' + parentArray[i] + '" ' +
                 'data-post="' + postArray[i] + '" ' +
                 'data-name="' + nameArray[i] + '" ' +
                 'class="col-lg-6 person hidden">' +
@@ -305,20 +312,20 @@ window.onload = function () {
             var next = _$('#next');
             var min = Math.min.apply(null, parentArray);
 
-            if (dataBase.priorityId) {
+            if (dataBase.parentId) {
                 base.classList.add('hidden');
             }
-            if (dataPerson.personId) {
+            if (dataPerson.parentId) {
                 person.classList.add('hidden');
             }
 
-            if (dataBase.priorityId === String(min - 1)) {
+            if (dataBase.parentId === String(min - 1)) {
                 base.classList.remove('hidden');
                 back.classList.add('hidden');
                 prev.classList.add('hidden');
                 next.classList.add('hidden');
             }
-            if (dataPerson.personId === String(min)) {
+            if (dataPerson.parentId === String(min)) {
                 person.classList.remove('hidden');
             }
         }
@@ -331,20 +338,21 @@ window.onload = function () {
     function countPerson() {
         for (i = 0; i < military.length; i++) {
             var person = _$('#soldier' + military[i].id),
-            dataPerson = person.dataset;
+                dataPerson = person.dataset;
             if (person.classList.contains('hidden') === false) {
-                countChild(Number(dataPerson.personId));
+                countChild(Number(dataPerson.parentId));
                 break;
             }
         }
     }
+
     function countChild(parent) {
         var countArray = [];
         for (i = 0; i < military.length; i++) {
             var person = _$('#soldier' + military[i].id),
                 dataPerson = person.dataset;
             if (person.classList.contains('hidden')
-                && dataPerson.personId > parent) {
+                && dataPerson.parentId > parent) {
                 countArray[i] = military[i].id;
             }
         }
@@ -371,7 +379,7 @@ window.onload = function () {
 
         //проверка количества подчиненных
         var indent = _$('#indent' + military[i].id);
-        if (dataPerson.name === 'Darth Sidius' || dataPerson.personId === String(max)) {
+        if (dataPerson.name === 'Darth Sidius' || dataPerson.parentId === String(max)) {
             indent.classList.add('hidden');
         }
 
@@ -407,14 +415,14 @@ window.onload = function () {
                     // открыть персонажа в шапке
                     if (this.id === 'soldier' + military[i].id) {
                         priority.classList.remove('hidden');
-                        var soldier = Number(data.personId);
+                        var soldier = Number(data.parentId);
                         var subordinate = soldier + 1;
                         for (i = 0; i < military.length; i++) {
                             var personThis = _$('#soldier' + military[i].id),
                                 dataThis = personThis.dataset;
-                            if (data.personId === String(soldier)) {
+                            if (data.parentId === String(soldier)) {
                                 personThis.classList.add('hidden');
-                                if (dataThis.personId === String(subordinate)) {
+                                if (dataThis.parentId === String(subordinate)) {
                                     personThis.classList.remove('hidden');
                                 }
                             }
@@ -429,50 +437,32 @@ window.onload = function () {
         //переход на уровень выше
         back.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var peoplePrev = _$('#soldier' + military[i].id),
-                    dataPeople = peoplePrev.dataset;
-
-                var soldier = Number(dataPeople.personId) - 1;
-                var subordinate = soldier + 1;
-
-                if (dataPeople.personId === String(parentArray[i])
-                    && peoplePrev.classList.contains('hidden') === false) { // найти открытые объекты
-
+                var priorityAll = _$('#priority' + military[i].id),
+                    dataPriorityAll = priorityAll.dataset;
+                var chief = Number(dataPriorityAll.parentId);
+                if (priorityAll.classList.contains('hidden') === false) {
                     for (i = 0; i < military.length; i++) {
-                        var general = _$('#priority' + i);
-                        var man = _$('#soldier' + military[i].id),
-                            dataMan = man.dataset;
-
-                        general.classList.add('hidden');
-                        man.classList.add('hidden');
-
-                        if (dataPeople.personId === String(subordinate)) {
-                            if (general.id === 'priority0') {
-                                if (dataPeople.personId === String(min + 1)) {
-                                    back.classList.add('hidden');
-
-                                    prev.classList.add('hidden');
-                                    next.classList.add('hidden');
-                                } else {
-                                    back.classList.remove('hidden');
-
-                                    prev.classList.remove('hidden');
-                                    next.classList.remove('hidden');
-                                }
-                            }
-                            if (dataMan.personId === String(soldier)) {
-                                man.classList.remove('hidden');
+                        var priority = _$('#priority' + military[i].id);
+                        var person = _$('#soldier' + military[i].id),
+                            dataPerson = person.dataset;
+                        person.classList.add('hidden');
+                        if (dataPerson.parentId === String(chief)) {
+                            priority.classList.add('hidden');
+                            person.classList.remove('hidden');
+                            if (dataPerson.parentId === String(min)) {
+                                back.classList.add('hidden');
+                                prev.classList.add('hidden');
+                                next.classList.add('hidden');
                             }
                         }
                     }
-                    for (i = 0; i < military.length; i++) {
-                        var priorityPrev = _$('#priority' + i),
-                            dataPriority = priorityPrev.dataset;
-                        if (dataPriority.priorityId === String(soldier - 1)) {
-                            priorityPrev.classList.remove('hidden');
-                            break;
-                        }
-                    }
+                }
+            }
+            for (i = 0; i < military.length; i++) {
+                priority = _$('#priority' + i);
+                var dataPriority = priority.dataset;
+                if (dataPriority.parentId === String(chief - 1)) {
+                    priority.classList.remove('hidden');
                     break;
                 }
             }
@@ -517,11 +507,7 @@ window.onload = function () {
         // переход на предыдущего персонажа
         prev.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var peoplePrev = _$('#soldier' + military[i].id),
-                    dataPrev = peoplePrev.dataset;
-                var mainPrev = _$('#priority' + military[i].id),
-                    dataMain = mainPrev.dataset;
-
+                var mainPrev = _$('#priority' + military[i].id);
                 if (mainPrev.classList.contains('hidden') === false) {
                     currentId = i;
                     var result = checkForPrevSibling(currentId);
@@ -543,10 +529,7 @@ window.onload = function () {
         //переход на следующего персонажа
         next.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var peopleNext = _$('#soldier' + military[i].id);
-                var mainNext = _$('#priority' + military[i].id),
-                    dataMainNext = mainNext.dataset;
-
+                var mainNext = _$('#priority' + military[i].id);
                 if (mainNext.classList.contains('hidden') === false) {
                     currentId = i;
                     var result = checkForNextSibling(currentId);
@@ -565,4 +548,5 @@ window.onload = function () {
             }
         };
     }
-};
+}
+;
