@@ -218,20 +218,13 @@ window.onload = function () {
         }*/
     ];
     var i;
-    var j;
     var outPriority = '';
     var out = '';
     var outBase = '';
     var parentArray = [];
     var nameArray = [];
     var postArray = [];
-    var countArray = [];
     var currentId = '';
-
-    for (i = 0; i < military.length; i++) {
-        countArray[i] = military[i].id;
-    }
-    countArray.reverse();
 
     function starwars() {
         for (i = 0; i < military.length; i++) {
@@ -277,7 +270,7 @@ window.onload = function () {
                 '<div class="cursor">' +
                 '<div id="indent' + military[i].id + '" class="indent">' +
                 '<div class="number">' +
-                '<span id="length' + military[i].id + '">' + (countArray[i] - 1) + '</span>' +
+                '<span id="length' + military[i].id + '"></span>' +
                 '</div>' +
                 '</div>' +
                 '<div class="ava">' +
@@ -331,36 +324,46 @@ window.onload = function () {
             }
         }
         //количество подчиненных
-        countChild ();
+        countPerson();
     }
 
     mainScreen(); // сборка главного экрана
 
-    function countChild () {
-        var x = [];
-        var z = [];
+    function countPerson() {
         for (i = 0; i < military.length; i++) {
-            var chosenPerson = _$('#soldier' + military[i].id),
-                dataChosen = chosenPerson.dataset;
-            for (i = 0; i < military.length; i++) {
-                var person = _$('#soldier' + military[i].id),
-                    dataPerson = person.dataset;
-                if (person.classList.contains('hidden') === false) {
-                    x[i] = military[i].id;
-                }
-                if (person.classList.contains('hidden')
-                    && dataPerson.personId > dataChosen.personId) {
-                    z[i] = military[i].id;
-                }
+            var person = _$('#soldier' + military[i].id),
+            dataPerson = person.dataset;
+            if (person.classList.contains('hidden') === false) {
+                countChild(Number(dataPerson.personId));
+                break;
             }
         }
-        x = x.filter(Number);
-        z = z.filter(Number);
-        var y = x.length;
-        var j = z.length;
-        console.log('j:' + j);
-        console.log('y:' + y);
     }
+    function countChild(parent) {
+        var countArray = [];
+        /*for (i = 0; i < military.length; i++) {
+            var chosenPerson = _$('#soldier' + military[i].id),
+                dataChosen = chosenPerson.dataset;*/
+        for (i = 0; i < military.length; i++) {
+            var person = _$('#soldier' + military[i].id),
+                dataPerson = person.dataset;
+            if (person.classList.contains('hidden')
+                && dataPerson.personId > parent) {
+                countArray[i] = military[i].id;
+            }
+        }
+        /*}*/
+        countArray = countArray.filter(Number);
+        var countArrayLength = countArray.length;
+        for (i = 0; i < military.length; i++) {
+            person = _$('#soldier' + military[i].id);
+            var childLength = _$('#length' + military[i].id);
+            if (person.classList.contains('hidden') === false) {
+                childLength.innerHTML = countArrayLength;
+            }
+        }
+    }
+
 
     for (i = 0; i < military.length; i++) {
 
@@ -455,7 +458,7 @@ window.onload = function () {
                 }
             }
             //количество подчиненных
-            countChild ();
+            countPerson();
         };
 
         //переход на уровень выше
@@ -598,13 +601,4 @@ window.onload = function () {
             }
         };
     }
-
 };
-
-
-
-
-
-
-
-
