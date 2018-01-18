@@ -40,7 +40,7 @@ span {
   }
 }
 
-.logo, .priority-person, .person > .cursor {
+.logo, .priority-person, .person > .align {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,12 +86,12 @@ span {
     @media (min-width: $xs) {
       padding: 40px 0 44px;
       background-size: 1000px;
-      margin-bottom: 33px;
+      margin-bottom: 32px;
     }
     @media (min-width: $md) {
       padding: 65px 0 48px;
       background-size: 1500px;
-      margin-bottom: 81px;
+      margin-bottom: 86px;
     }
     @media (min-width: $lg) {
       padding: 140px 0 70px;
@@ -233,12 +233,15 @@ span {
   .section-two {
     .person {
       @media (min-width: $xs) {
+        min-width: 258px;
         margin-bottom: 33px;
       }
       @media (min-width: $md) {
+        min-width: 340px;
         margin-bottom: 42px;
       }
       @media (min-width: $lg) {
+        min-width: 480px;
         margin-bottom: 78px;
         padding: 0 2.3%;
       }
@@ -246,9 +249,8 @@ span {
         padding: 0 87px;
       }
 
-      .cursor {
+      .align {
         justify-content: flex-start;
-        cursor: pointer;
       }
 
       .indent {
@@ -258,16 +260,21 @@ span {
           justify-content: center;
           align-items: center;
           background: #ff0000;
-          width: 35px;
-          height: 35px;
+          width: 32px;
+          height: 32px;
           border-radius: 50%;
           position: absolute;
           top: 0;
           left: 0;
           z-index: 1;
 
+          @media (min-width: $md) {
+            width: 35px;
+            height: 35px;
+          }
           @media (max-width: $max-lg) {
-            
+            top: -4px;
+            left: -7px;
           }
 
           span {
@@ -279,6 +286,7 @@ span {
       }
 
       .ava {
+        cursor: pointer;
         @media (min-width: $xs) {
           margin-right: 25px;
         }
@@ -304,6 +312,7 @@ span {
 
       .name {
         white-space: nowrap;
+        cursor: pointer;
       }
 
       h2 {

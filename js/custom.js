@@ -275,7 +275,7 @@ window.onload = function () {
                 'data-post="' + postArray[i] + '" ' +
                 'data-name="' + nameArray[i] + '" ' +
                 'class="col-lg-two person hidden">' +
-                '<div class="cursor">' +
+                '<div class="align">' +
                 '<div class="ava">' +
                 '<div id="indent' + military[i].id + '" class="indent">' +
                 '<div class="number">' +

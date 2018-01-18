@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
 .container {
   width: 100%;
   padding-right: 15px;
@@ -36,12 +42,6 @@
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
-}
-
-.col {
-  flex-basis: 0;
-  flex-grow: 1;
-  max-width: 100%;
 }
 
 .col-one {

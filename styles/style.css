@@ -3,6 +3,11 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2; }
+
 .container {
   width: 100%;
   padding-right: 15px;
@@ -39,16 +44,6 @@
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px; }
-
-.col {
-  -webkit-flex-basis: 0;
-      -ms-flex-preferred-size: 0;
-          flex-basis: 0;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  max-width: 100%; }
 
 .col-one {
   -webkit-box-flex: 0;
@@ -109,7 +104,7 @@ span {
         -ms-flex-direction: column;
             flex-direction: column; } }
 
-.logo, .priority-person, .person > .cursor {
+.logo, .priority-person, .person > .align {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -155,13 +150,13 @@ span {
         padding: 40px 0 44px;
         -webkit-background-size: 1000px 1000px;
                 background-size: 1000px;
-        margin-bottom: 33px; } }
+        margin-bottom: 32px; } }
     @media (min-width: 768px) {
       .main .section-one {
         padding: 65px 0 48px;
         -webkit-background-size: 1500px 1500px;
                 background-size: 1500px;
-        margin-bottom: 81px; } }
+        margin-bottom: 86px; } }
     @media (min-width: 992px) {
       .main .section-one {
         padding: 140px 0 70px;
@@ -280,23 +275,25 @@ span {
           right: 15px; } }
   @media (min-width: 0) {
     .main .section-two .person {
+      min-width: 258px;
       margin-bottom: 33px; } }
   @media (min-width: 768px) {
     .main .section-two .person {
+      min-width: 340px;
       margin-bottom: 42px; } }
   @media (min-width: 992px) {
     .main .section-two .person {
+      min-width: 480px;
       margin-bottom: 78px;
       padding: 0 2.3%; } }
   @media (min-width: 1121px) {
     .main .section-two .person {
       padding: 0 87px; } }
-  .main .section-two .person .cursor {
+  .main .section-two .person .align {
     -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
-    cursor: pointer; }
+            justify-content: flex-start; }
   .main .section-two .person .indent .number {
     display: -webkit-box;
     display: -webkit-flex;
@@ -311,38 +308,49 @@ span {
         -ms-flex-align: center;
             align-items: center;
     background: #ff0000;
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     -webkit-border-radius: 50%;
             border-radius: 50%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1; }
+    @media (min-width: 768px) {
+      .main .section-two .person .indent .number {
+        width: 35px;
+        height: 35px; } }
+    @media (max-width: 991.99px) {
+      .main .section-two .person .indent .number {
+        top: -4px;
+        left: -7px; } }
     .main .section-two .person .indent .number span {
       font-size: 15px;
       letter-spacing: normal;
       color: #fff; }
-  @media (min-width: 0) {
-    .main .section-two .person .ava {
-      margin-right: 25px; } }
-  @media (min-width: 768px) {
-    .main .section-two .person .ava {
-      margin-right: 33px; } }
-  @media (min-width: 992px) {
-    .main .section-two .person .ava {
-      margin-right: 46px; } }
-  @media (min-width: 0) {
-    .main .section-two .person .ava img {
-      width: 60px; } }
-  @media (min-width: 768px) {
-    .main .section-two .person .ava img {
-      width: 80px; } }
-  @media (min-width: 992px) {
-    .main .section-two .person .ava img {
-      width: 110px; } }
+  .main .section-two .person .ava {
+    cursor: pointer; }
+    @media (min-width: 0) {
+      .main .section-two .person .ava {
+        margin-right: 25px; } }
+    @media (min-width: 768px) {
+      .main .section-two .person .ava {
+        margin-right: 33px; } }
+    @media (min-width: 992px) {
+      .main .section-two .person .ava {
+        margin-right: 46px; } }
+    @media (min-width: 0) {
+      .main .section-two .person .ava img {
+        width: 60px; } }
+    @media (min-width: 768px) {
+      .main .section-two .person .ava img {
+        width: 80px; } }
+    @media (min-width: 992px) {
+      .main .section-two .person .ava img {
+        width: 110px; } }
   .main .section-two .person .name {
-    white-space: nowrap; }
+    white-space: nowrap;
+    cursor: pointer; }
   .main .section-two .person h2 {
     margin: 0; }
     @media (min-width: 0) {
