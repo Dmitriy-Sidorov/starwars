@@ -276,12 +276,12 @@ window.onload = function () {
                 'data-name="' + nameArray[i] + '" ' +
                 'class="col-lg-two person hidden">' +
                 '<div class="cursor">' +
+                '<div class="ava">' +
                 '<div id="indent' + military[i].id + '" class="indent">' +
                 '<div class="number">' +
                 '<span id="length' + military[i].id + '"></span>' +
                 '</div>' +
                 '</div>' +
-                '<div class="ava">' +
                 '<img src="assets/avatars/' + military[i].image + '" alt="' + military[i].name + '">' +
                 '<div class="img-hover"></div>' +
                 '</div>' +

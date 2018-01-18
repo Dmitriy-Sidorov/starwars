@@ -33,7 +33,7 @@
   margin-right: -15px;
   margin-left: -15px; }
 
-.col-one, .col-two {
+.col-one, .col-lg-two {
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -82,7 +82,7 @@ span {
 .hidden {
   display: none !important; }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199.99px) {
   .alignment {
     display: -webkit-box;
     display: -webkit-flex;
@@ -95,9 +95,13 @@ span {
 
 @media (min-width: 992px) {
   .column {
+    margin-right: -2.3%;
+    margin-left: -2.3%; } }
+@media (min-width: 1121px) {
+  .column {
     margin-right: -87px;
     margin-left: -87px; } }
-@media (max-width: 992px) {
+@media (max-width: 991.99px) {
   .column {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -283,6 +287,9 @@ span {
   @media (min-width: 992px) {
     .main .section-two .person {
       margin-bottom: 78px;
+      padding: 0 2.3%; } }
+  @media (min-width: 1121px) {
+    .main .section-two .person {
       padding: 0 87px; } }
   .main .section-two .person .cursor {
     -webkit-box-pack: start;
@@ -312,9 +319,6 @@ span {
     top: 0;
     left: 0;
     z-index: 1; }
-    @media (min-width: 992px) {
-      .main .section-two .person .indent .number {
-        left: 87px; } }
     .main .section-two .person .indent .number span {
       font-size: 15px;
       letter-spacing: normal;

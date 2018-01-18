@@ -7,6 +7,13 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 
+//max-with
+$max-xs: $xs - 0.01px;
+$max-sm: $sm - 0.01px;
+$max-md: $md - 0.01px;
+$max-lg: $lg - 0.01px;
+$max-xl: $xl - 0.01px;
+
 //color fonts
 $color-white: #FFFFFF;
 $color-grey: #808080;
