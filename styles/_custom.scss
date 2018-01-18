@@ -20,18 +20,18 @@ span {
 }
 
 .alignment {
-  @include media-breakpoint-down (lg) {
+  @media (max-width: $xl) {
     display: flex;
     justify-content: center
   }
 }
 
 .column {
-  @include media-breakpoint-up (lg) {
+  @media (min-width: $lg) {
     margin-right: -87px;
     margin-left: -87px;
   }
-  @include media-breakpoint-down (md) {
+  @media (max-width: $lg) {
     flex-direction: column;
   }
 }
@@ -79,17 +79,17 @@ span {
     background: $bg-image-circle;
     background-position: bottom center;
     position: relative;
-    @include media-breakpoint-up (xs) {
+    @media (min-width: $xs) {
       padding: 40px 0 44px;
       background-size: 1000px;
       margin-bottom: 33px;
     }
-    @include media-breakpoint-up (md) {
+    @media (min-width: $md) {
       padding: 65px 0 48px;
       background-size: 1500px;
       margin-bottom: 81px;
     }
-    @include media-breakpoint-up (lg) {
+    @media (min-width: $lg) {
       padding: 140px 0 70px;
       background-size: 1750px;
       margin-bottom: 117px;
@@ -98,15 +98,15 @@ span {
     .logo {
       img {
         cursor: pointer;
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           width: 67px;
           margin-bottom: 55px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           width: 106px;
           margin-bottom: 117px;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           width: 114px;
           margin-bottom: 95px;
         }
@@ -120,11 +120,11 @@ span {
         position: absolute;
         cursor: pointer;
 
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           font-size: $mobile-paragraf_2;
           top: 11px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           font-size: $desktop-paragraf_2;
           top: 22px;
         }
@@ -133,25 +133,25 @@ span {
         }
       }
       #back {
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           left: 30px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           left: 20px;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           left: 15px;
         }
       }
 
       #onwards {
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           right: 30px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           right: 20px;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           right: 15px;
         }
       }
@@ -167,32 +167,32 @@ span {
       }
 
       img {
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           width: 124px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           width: 217px;
         }
       }
       h1 {
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           font-size: $mobile-header_1;
           margin: 22px 0 8px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           font-size: $desktop-header_1;
           margin: 24px 0 10px;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           margin: 18px 0 10px;
         }
       }
       span {
 
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           font-size: $mobile-paragraf_1;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           font-size: $desktop-paragraf_1;
         }
       }
@@ -202,7 +202,7 @@ span {
         position: absolute;
         display: none;
 
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           display: block;
           top: 214px;
           width: 65px;
@@ -212,14 +212,14 @@ span {
         }
       }
       #prev {
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           left: 15px;
         }
       }
       #next {
         transform: rotate(180deg);
 
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           right: 15px;
         }
       }
@@ -228,13 +228,13 @@ span {
 
   .section-two {
     .person {
-      @include media-breakpoint-up (xs) {
+      @media (min-width: $xs) {
         margin-bottom: 33px;
       }
-      @include media-breakpoint-up (md) {
+      @media (min-width: $md) {
         margin-bottom: 42px;
       }
-      @include media-breakpoint-up (lg) {
+      @media (min-width: $lg) {
         margin-bottom: 78px;
         padding: 0 87px;
       }
@@ -259,7 +259,7 @@ span {
           left: 0;
           z-index: 1;
 
-          @include media-breakpoint-up (lg) {
+          @media (min-width: $lg) {
             left: 87px;
           }
 
@@ -272,24 +272,24 @@ span {
       }
 
       .ava {
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           margin-right: 25px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           margin-right: 33px;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           margin-right: 46px;
         }
 
         img {
-          @include media-breakpoint-up (xs) {
+          @media (min-width: $xs) {
             width: 60px;
           }
-          @include media-breakpoint-up (md) {
+          @media (min-width: $md) {
             width: 80px;
           }
-          @include media-breakpoint-up (lg) {
+          @media (min-width: $lg) {
             width: 110px;
           }
         }
@@ -302,28 +302,28 @@ span {
       h2 {
         margin: 0;
 
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           font-size: $mobile-header_2;
           margin-bottom: 2px;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           font-size: $tablet-header_2;
           margin-bottom: 8px;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           font-size: $desktop-header_2;
           margin-bottom: 10px;
         }
       }
       span {
 
-        @include media-breakpoint-up (xs) {
+        @media (min-width: $xs) {
           font-size: $mobile-paragraf_2;
         }
-        @include media-breakpoint-up (md) {
+        @media (min-width: $md) {
           font-size: $tablet-paragraf_2;
         }
-        @include media-breakpoint-up (lg) {
+        @media (min-width: $lg) {
           font-size: $desktop-paragraf_2;
         }
       }

@@ -268,53 +268,34 @@ window.onload = function () {
                 '<span>' + military[i].post + '</span>' +
                 '</div>';
 
+            var outPersone =
+                '<div id="soldier' + military[i].id + '" ' +
+                'data-id="' + military[i].id + '" ' +
+                'data-parent-id="' + parentArray[i] + '" ' +
+                'data-post="' + postArray[i] + '" ' +
+                'data-name="' + nameArray[i] + '" ' +
+                'class="col-lg-two person hidden">' +
+                '<div class="cursor">' +
+                '<div id="indent' + military[i].id + '" class="indent">' +
+                '<div class="number">' +
+                '<span id="length' + military[i].id + '"></span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="ava">' +
+                '<img src="assets/avatars/' + military[i].image + '" alt="' + military[i].name + '">' +
+                '<div class="img-hover"></div>' +
+                '</div>' +
+                '<div class="name">' +
+                '<h2>' + military[i].name + '</h2>' +
+                '<span>' + military[i].post + '</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
             if (nameArray[i] === 'Darth Sidius') {
-                outSidius += '<div id="soldier' + military[i].id + '" ' +
-                    'data-id="' + military[i].id + '" ' +
-                    'data-parent-id="' + parentArray[i] + '" ' +
-                    'data-post="' + postArray[i] + '" ' +
-                    'data-name="' + nameArray[i] + '" ' +
-                    'class="col-lg-6 person hidden">' +
-                    '<div class="cursor">' +
-                    '<div id="indent' + military[i].id + '" class="indent">' +
-                    '<div class="number">' +
-                    '<span id="length' + military[i].id + '"></span>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="ava">' +
-                    '<img src="assets/avatars/' + military[i].image + '" alt="' + military[i].name + '">' +
-                    '<div class="img-hover"></div>' +
-                    '</div>' +
-                    '<div class="name">' +
-                    '<h2>' + military[i].name + '</h2>' +
-                    '<span>' + military[i].post + '</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                outSidius += outPersone;
             } else {
-                out +=
-                    '<div id="soldier' + military[i].id + '" ' +
-                    'data-id="' + military[i].id + '" ' +
-                    'data-parent-id="' + parentArray[i] + '" ' +
-                    'data-post="' + postArray[i] + '" ' +
-                    'data-name="' + nameArray[i] + '" ' +
-                    'class="col-lg-6 person hidden">' +
-                    '<div class="cursor">' +
-                    '<div id="indent' + military[i].id + '" class="indent">' +
-                    '<div class="number">' +
-                    '<span id="length' + military[i].id + '"></span>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="ava">' +
-                    '<img src="assets/avatars/' + military[i].image + '" alt="' + military[i].name + '">' +
-                    '<div class="img-hover"></div>' +
-                    '</div>' +
-                    '<div class="name">' +
-                    '<h2>' + military[i].name + '</h2>' +
-                    '<span>' + military[i].post + '</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
+                out += outPersone;
             }
 
         }
