@@ -242,7 +242,6 @@ window.onload = function () {
             parentArray[i] = military[i].parent;
             nameArray[i] = military[i].name;
             postArray[i] = military[i].post;
-            var minParent = Math.min.apply(null, parentArray);
 
             outBase =
                 '<div id="priority' + (military[0].id - 1) + '" ' +
@@ -269,8 +268,7 @@ window.onload = function () {
                 '<span>' + military[i].post + '</span>' +
                 '</div>';
 
-            if (nameArray[i] === 'Darth Sidius'
-                && parentArray[i] === minParent) {
+            if (nameArray[i] === 'Darth Sidius') {
                 outSidius += '<div id="soldier' + military[i].id + '" ' +
                     'data-id="' + military[i].id + '" ' +
                     'data-parent-id="' + parentArray[i] + '" ' +
@@ -409,48 +407,6 @@ window.onload = function () {
             }
         };
 
-        // Ищет есть ли передыдущий элемент в списке данного уровня
-        function checkForPrevSibling(currentId) {
-            for (i = military.length - 1; i >= 0; i--) {
-                if (i < currentId) {
-                    if (military[currentId].parent === parentArray[i]) {
-                        var personId = i;
-                        return [_$('#priority' + military[i].id), personId];
-                    }
-                }
-            }
-            for (i = military.length - 1; i >= currentId; i--) {
-                if (i !== currentId) {
-                    if (military[currentId].parent === parentArray[i]) {
-                        personId = i;
-                        return [_$('#priority' + military[i].id), personId];
-                    }
-                }
-            }
-            return false;
-        }
-
-        // Ищет есть ли следующий элемент в списке данного уровня
-        function checkForNextSibling(currentId) {
-            for (i = currentId; i < military.length; i++) {
-                if (i > currentId) {
-                    if (military[currentId].parent === parentArray[i]) {
-                        var personId = i;
-                        return [_$('#priority' + military[i].id), personId];
-                    }
-                }
-            }
-            for (i = 0; i < currentId; i++) {
-                if (i !== currentId) {
-                    if (military[currentId].parent === parentArray[i]) {
-                        personId = i;
-                        return [_$('#priority' + military[i].id), personId];
-                    }
-                }
-            }
-            return false;
-        }
-
         // переход на предыдущего персонажа
         prev.onclick = function () {
             for (i = 0; i < military.length; i++) {
@@ -579,5 +535,45 @@ window.onload = function () {
             }
             countPerson();
         }
+    }
+    // Ищет есть ли передыдущий элемент в списке данного уровня
+    function checkForPrevSibling(currentId) {
+        for (i = military.length - 1; i >= 0; i--) {
+            if (i < currentId) {
+                if (military[currentId].parent === parentArray[i]) {
+                    var personId = i;
+                    return [_$('#priority' + military[i].id), personId];
+                }
+            }
+        }
+        for (i = military.length - 1; i >= currentId; i--) {
+            if (i !== currentId) {
+                if (military[currentId].parent === parentArray[i]) {
+                    personId = i;
+                    return [_$('#priority' + military[i].id), personId];
+                }
+            }
+        }
+        return false;
+    }
+    // Ищет есть ли следующий элемент в списке данного уровня
+    function checkForNextSibling(currentId) {
+        for (i = currentId; i < military.length; i++) {
+            if (i > currentId) {
+                if (military[currentId].parent === parentArray[i]) {
+                    var personId = i;
+                    return [_$('#priority' + military[i].id), personId];
+                }
+            }
+        }
+        for (i = 0; i < currentId; i++) {
+            if (i !== currentId) {
+                if (military[currentId].parent === parentArray[i]) {
+                    personId = i;
+                    return [_$('#priority' + military[i].id), personId];
+                }
+            }
+        }
+        return false;
     }
 };
