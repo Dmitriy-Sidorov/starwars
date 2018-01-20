@@ -208,21 +208,21 @@ window.onload = function () {
             post: "Soldier",
             image: "stromtrooper.png",
             parent: 4
-        }/*,
+        },
         {
             id: 31,
             name: "KN-55",
             post: "Soldier",
             image: "darthvader.png",
-            parent: 5
+            parent: 15
         },
         {
             id: 32,
             name: "Darth Sidius",
             post: "Admiral",
             image: "jahbatut.png",
-            parent: 6
-        }*/
+            parent: 31
+        }
     ];
     var i;
     var parentArray = [];
@@ -315,10 +315,10 @@ window.onload = function () {
         var min = Math.min.apply(null, parentArray);
 
         //проверка количества подчиненных
-        var indent = _$('#indent' + military[i].id);
+        /*var indent = _$('#indent' + military[i].id);
         if (dataPerson.name === 'Darth Sidius' || dataPerson.parentId === String(max)) {
             indent.classList.add('hidden');
-        }
+        }*/
 
         var logo = _$('#logo'); // переход на главный экран
         logo.onclick = mainScreen;
@@ -492,9 +492,8 @@ window.onload = function () {
     //функция проверки наличия подчиненных
     function presenceOfChildren(thisId) {
         var indent = _$('#indent' + military[thisId].id);
-        var priority = _$('#priority' + military[thisId].id);
-        var person = _$('#soldier' + military[thisId].id),
-            dataPerson = person.dataset;
+        var priority = _$('#priority' + military[thisId].id),
+            dataPriority = priority.dataset;
         if (indent.classList.contains('hidden')
             && priority.classList.contains('hidden') === false) {
             for (i = 0; i < military.length; i++) {
@@ -502,7 +501,21 @@ window.onload = function () {
                 personThis.classList.add('hidden');
             }
         } else {
-            var chief = Number(dataPerson.parentId);
+            var chief = Number(dataPriority.parentId);
+            var subordinate = military[thisId].id;
+            for (i = 0; i < military.length; i++) {
+                personThis = _$('#soldier' + military[i].id);
+                var dataPersonThis = personThis.dataset;
+                if (dataPriority.parentId === String(chief)) {
+                    personThis.classList.add('hidden');
+                    if (dataPersonThis.parentId === String(subordinate)) {
+                        personThis.classList.remove('hidden');
+                    }
+                }
+            }
+
+
+            /*var chief = Number(dataPerson.parentId);
             var subordinate = chief + 1;
             for (i = 0; i < military.length; i++) {
                 personThis = _$('#soldier' + military[i].id);
@@ -513,7 +526,9 @@ window.onload = function () {
                         personThis.classList.remove('hidden');
                     }
                 }
-            }
+            }*/
+
+
             countPerson();
         }
     }
