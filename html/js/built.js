@@ -339,8 +339,11 @@ window.onload = function () {
         var back = _$('#back');
         var prev = _$('#prev');
         var next = _$('#next');
-        var max = Math.max.apply(null, parentArray);
         var min = Math.min.apply(null, parentArray);
+
+        //количество подчиненных
+        var childLength = _$('#length' + military[i].id);
+        childLength.innerHTML = countPerson(Number(dataPerson.id));
 
         var logo = _$('#logo'); // переход на главный экран
         logo.onclick = mainScreen;
@@ -476,10 +479,10 @@ window.onload = function () {
         }
     }
 
-    //функция определения приоритетного уровня для подсчета их подчиненных
+    //функция подсчета подчиненных
     function countPerson(id) {
         var counter = 0;
-        for (i = 0; i < military.length; i++) {
+        for (var i = 0; i < military.length; i++) {
             if (parentArray[i] === id) {
                 counter++;
                 counter += countPerson(military[i].id);
@@ -487,20 +490,6 @@ window.onload = function () {
         }
         console.log(counter);
         return counter;
-    }
-    //количество подчиненных
-    countPerson(15)
-    for (i = 0; i < military.length; i++) {
-        person = _$('#soldier' + military[i].id);
-        dataPerson = person.dataset;
-        var childLength = _$('#length' + military[i].id);
-        var result = countPerson(Number(dataPerson.id));
-        if (result) {
-            childLength.innerHTML = result;
-        } else {
-            break;
-        }
-        console.log(countPerson(15));
     }
 
     //функция проверки наличия подчиненных
