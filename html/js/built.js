@@ -320,7 +320,6 @@ window.onload = function () {
             } else {
                 out += outPersone;
             }
-
         }
         _$('#outpriority').innerHTML = outBase + outPriority;
         _$('#out').innerHTML = outSidius + out;
@@ -337,12 +336,6 @@ window.onload = function () {
         var next = _$('#next');
         var max = Math.max.apply(null, parentArray);
         var min = Math.min.apply(null, parentArray);
-
-        //проверка количества подчиненных
-        /*var indent = _$('#indent' + military[i].id);
-        if (dataPerson.name === 'Darth Sidius' || dataPerson.parentId === String(max)) {
-            indent.classList.add('hidden');
-        }*/
 
         var logo = _$('#logo'); // переход на главный экран
         logo.onclick = mainScreen;
@@ -480,24 +473,48 @@ window.onload = function () {
         countPerson();
     }
 
-    function _$(selector) {
-        return document.querySelector(selector);
-    }
-
     //функция определения приоритетного уровня для подсчета их подчиненных
     function countPerson() {
-        for (i = 0; i < military.length; i++) {
-            var person = _$('#soldier' + military[i].id),
+        for (var j = 0; j < military.length; j++) {
+            var countArray = [];
+            var priorityAll = _$('#priority' + military[j].id),
+                dataPriorityAll = priorityAll.dataset;
+            var personAll = _$('#soldier' + military[j].id),
+                dataPersonAll = personAll.dataset;
+            for (i = 0; i < military.length; i++) {
+                var person = _$('#soldier' + military[i].id),
+                    dataPerson = person.dataset;
+                if (dataPersonAll.id === dataPerson.parentId) {
+                    countArray[i] = military[i].id;
+                }
+            }
+            countArray = countArray.filter(Number);
+            var countArrayLength = countArray.length;
+            for (i = 0; i < military.length; i++) {
+                person = _$('#soldier' + military[i].id);
                 dataPerson = person.dataset;
-            if (person.classList.contains('hidden') === false) {
-                countChild(Number(dataPerson.parentId));
-                break;
+                var childLength = _$('#length' + military[i].id);
+                if (dataPerson.id === dataPersonAll.id) {
+                    childLength.innerHTML = countArrayLength;
+                }
             }
         }
+
+
+        /*for (i = 0; i < military.length; i++) {
+            var priorityAll = _$('#priority' + military[i].id),
+                dataAllPriority = priorityAll.dataset;
+            var personAll = _$('#soldier' + military[i].id),
+                dataAllPerson = personAll.dataset;
+            if (personAll.classList.contains('hidden') === false) {
+                countChild(Number(dataAllPerson.parentId));
+                break;
+            }
+        }*/
     }
 
     // функция подсчета непосдерственных и последующих подчиненных
-    function countChild(parent) {
+    /*function countChild(parent) {
         var countArray = [];
         for (i = 0; i < military.length; i++) {
             var person = _$('#soldier' + military[i].id),
@@ -516,7 +533,7 @@ window.onload = function () {
                 childLength.innerHTML = countArrayLength;
             }
         }
-    }
+    }*/
 
     //функция проверки наличия подчиненных
     function presenceOfChildren(thisId) {
@@ -542,7 +559,7 @@ window.onload = function () {
                     }
                 }
             }
-            countPerson();
+            //countPerson(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
 
@@ -586,5 +603,9 @@ window.onload = function () {
             }
         }
         return false;
+    }
+
+    function _$(selector) {
+        return document.querySelector(selector);
     }
 };
