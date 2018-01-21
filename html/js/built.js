@@ -229,22 +229,27 @@ window.onload = function () {
             post: "parent 31",
             image: "stromtrooper.png",
             parent: 31
-        }
-        ,
+        },
         {
             id: 34,
             name: "Soldier 34",
             post: "parent 32",
             image: "stromtrooper.png",
             parent: 32
-        }
-        ,
+        },
         {
             id: 35,
             name: "Soldier 35",
             post: "parent 32",
             image: "stromtrooper.png",
             parent: 32
+        },
+        {
+            id: 36,
+            name: "Soldier 36",
+            post: "parent 5",
+            image: "stromtrooper.png",
+            parent: 5
         }
     ];
     var i = 0;
@@ -469,71 +474,34 @@ window.onload = function () {
                 person.classList.remove('hidden');
             }
         }
-        //количество подчиненных
-        countPerson();
     }
 
     //функция определения приоритетного уровня для подсчета их подчиненных
-    function countPerson() {
-        for (var j = 0; j < military.length; j++) {
-            var countArray = [];
-            var priorityAll = _$('#priority' + military[j].id),
-                dataPriorityAll = priorityAll.dataset;
-            var personAll = _$('#soldier' + military[j].id),
-                dataPersonAll = personAll.dataset;
-            for (i = 0; i < military.length; i++) {
-                var person = _$('#soldier' + military[i].id),
-                    dataPerson = person.dataset;
-                if (dataPersonAll.id === dataPerson.parentId) {
-                    countArray[i] = military[i].id;
-                }
-            }
-            countArray = countArray.filter(Number);
-            var countArrayLength = countArray.length;
-            for (i = 0; i < military.length; i++) {
-                person = _$('#soldier' + military[i].id);
-                dataPerson = person.dataset;
-                var childLength = _$('#length' + military[i].id);
-                if (dataPerson.id === dataPersonAll.id) {
-                    childLength.innerHTML = countArrayLength;
-                }
+    function countPerson(id) {
+        var counter = 0;
+        for (i = 0; i < military.length; i++) {
+            if (parentArray[i] === id) {
+                counter++;
+                counter += countPerson(military[i].id);
             }
         }
-
-
-        /*for (i = 0; i < military.length; i++) {
-            var priorityAll = _$('#priority' + military[i].id),
-                dataAllPriority = priorityAll.dataset;
-            var personAll = _$('#soldier' + military[i].id),
-                dataAllPerson = personAll.dataset;
-            if (personAll.classList.contains('hidden') === false) {
-                countChild(Number(dataAllPerson.parentId));
-                break;
-            }
-        }*/
+        console.log(counter);
+        return counter;
     }
-
-    // функция подсчета непосдерственных и последующих подчиненных
-    /*function countChild(parent) {
-        var countArray = [];
-        for (i = 0; i < military.length; i++) {
-            var person = _$('#soldier' + military[i].id),
-                dataPerson = person.dataset;
-            if (person.classList.contains('hidden')
-                && dataPerson.parentId > parent) {
-                countArray[i] = military[i].id;
-            }
+    //количество подчиненных
+    countPerson(15)
+    for (i = 0; i < military.length; i++) {
+        person = _$('#soldier' + military[i].id);
+        dataPerson = person.dataset;
+        var childLength = _$('#length' + military[i].id);
+        var result = countPerson(Number(dataPerson.id));
+        if (result) {
+            childLength.innerHTML = result;
+        } else {
+            break;
         }
-        countArray = countArray.filter(Number);
-        var countArrayLength = countArray.length;
-        for (i = 0; i < military.length; i++) {
-            person = _$('#soldier' + military[i].id);
-            var childLength = _$('#length' + military[i].id);
-            if (person.classList.contains('hidden') === false) {
-                childLength.innerHTML = countArrayLength;
-            }
-        }
-    }*/
+        console.log(countPerson(15));
+    }
 
     //функция проверки наличия подчиненных
     function presenceOfChildren(thisId) {
@@ -559,11 +527,10 @@ window.onload = function () {
                     }
                 }
             }
-            //countPerson(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
 
-    // Ищет есть ли передыдущий элемент в списке данного уровня
+    //Ищет есть ли передыдущий элемент в списке данного уровня
     function checkForPrevSibling(currentId) {
         for (i = military.length - 1; i >= 0; i--) {
             if (i < currentId) {
@@ -584,7 +551,7 @@ window.onload = function () {
         return false;
     }
 
-    // Ищет есть ли следующий элемент в списке данного уровня
+    //Ищет есть ли следующий элемент в списке данного уровня
     function checkForNextSibling(currentId) {
         for (i = currentId; i < military.length; i++) {
             if (i > currentId) {
@@ -609,3 +576,4 @@ window.onload = function () {
         return document.querySelector(selector);
     }
 };
+
