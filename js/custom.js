@@ -208,48 +208,6 @@ window.onload = function () {
             post: "Soldier",
             image: "stromtrooper.png",
             parent: 4
-        },
-        {
-            id: 31,
-            name: "Soldier 31",
-            post: "parent 15",
-            image: "stromtrooper.png",
-            parent: 15
-        },
-        {
-            id: 32,
-            name: "Soldier 32",
-            post: "parent 15",
-            image: "stromtrooper.png",
-            parent: 15
-        },
-        {
-            id: 33,
-            name: "Soldier 33",
-            post: "parent 31",
-            image: "stromtrooper.png",
-            parent: 31
-        },
-        {
-            id: 34,
-            name: "Soldier 34",
-            post: "parent 32",
-            image: "stromtrooper.png",
-            parent: 32
-        },
-        {
-            id: 35,
-            name: "Soldier 35",
-            post: "parent 32",
-            image: "stromtrooper.png",
-            parent: 32
-        },
-        {
-            id: 36,
-            name: "Soldier 36",
-            post: "parent 5",
-            image: "stromtrooper.png",
-            parent: 5
         }
     ];
     var i = 0;
@@ -258,7 +216,7 @@ window.onload = function () {
     var postArray = [];
     var currentId = '';
 
-    function starwars() {
+    function starWars() {
         var outPriority = '';
         var outSidius = '';
         var out = '';
@@ -330,101 +288,47 @@ window.onload = function () {
         _$('#out').innerHTML = outSidius + out;
     }
 
-    starwars(); // сборка
+    starWars(); // сборка
     mainScreen(); // сборка главного экрана
+    counter(); // посчитать количество подчиненных
 
     for (i = 0; i < military.length; i++) {
-        var person = _$('#soldier' + military[i].id),
-            dataPerson = person.dataset;
-        var back = _$('#back');
-        var prev = _$('#prev');
-        var next = _$('#next');
-        var min = Math.min.apply(null, parentArray);
-
-        //количество подчиненных
-        var childLength = _$('#length' + military[i].id);
-        childLength.innerHTML = countPerson(Number(dataPerson.id));
-
         var logo = _$('#logo'); // переход на главный экран
         logo.onclick = mainScreen;
 
-        var soldier = _$('#soldier' + military[i].id);// взаимодействие с персонажами
+        var soldier = _$('#soldier' + military[i].id); // взаимодействие с персонажами
         soldier.onclick = function () {
             for (i = 0; i < military.length; i++) {
-                var base = _$('#priority0');
-                if (base.id === 'priority0') {
-                    //скрыть базовый объект
-                    base.classList.add('hidden');
-                    //открыть навигацию
-                    back.classList.remove('hidden');
-                    prev.classList.remove('hidden');
-                    next.classList.remove('hidden');
-                }
-                for (i = 0; i < military.length; i++) {
-                    var priorityAll = _$('#priority' + military[i].id);
-                    var personAll = _$('#soldier' + military[i].id);
-                    priorityAll.classList.add('hidden'); // скрыть всех приоритетных
-                    personAll.classList.add('hidden'); // скрыть всех подчиненных
-                }
-                for (i = 0; i < military.length; i++) {
-                    var priority = _$('#priority' + military[i].id);
-                    // открыть персонажа в шапке
-                    if (this.id === 'soldier' + military[i].id) {
-                        var thisId = i;
-                        priority.classList.remove('hidden');
-                        //выведение и проверка наличия подчиненных
-                        presenceOfChildren(thisId);
-                    }
+                var priority = _$('#priority' + military[i].id);
+                priority.classList.add('hidden');
+                if (this.id === 'soldier' + military[i].id) {
+                    basePriority(i); //проверка базовых элементов
+                    outputOfChildren(military[i].id); //выведение подчиненных и начальника
                 }
             }
         };
 
-        //переход на уровень выше
+        var back = _$('#back'); //переход на уровень выше
         back.onclick = function () {
             for (i = 0; i < military.length; i++) {
                 var priorityAll = _$('#priority' + military[i].id),
                     dataPriorityAll = priorityAll.dataset;
-                var soldier = dataPriorityAll.parentId;
                 if (priorityAll.classList.contains('hidden') === false) {
-                    for (i = 0; i < military.length; i++) {
-                        var priority = _$('#priority' + military[i].id);
-                        var person = _$('#soldier' + military[i].id),
-                            dataPerson = person.dataset;
-                        person.classList.add('hidden');
-                        if (soldier === dataPerson.parentId) {
-                            priority.classList.add('hidden');
-                            person.classList.remove('hidden');
-                        }
-                    }
-                }
-            }
-            for (i = 0; i < military.length; i++) {
-                priority = _$('#priority' + military[i].id);
-                var dataPriority = priority.dataset;
-                if (soldier === String(min)) {
-                    _$('#priority0').classList.remove('hidden');
-                    back.classList.add('hidden');
-                    prev.classList.add('hidden');
-                    next.classList.add('hidden');
-                    break;
-                }
-                if (soldier === dataPriority.id) {
-                    priority.classList.remove('hidden');
+                    basePriority(i); //проверка базовых элементов
+                    outputOfChildren(dataPriorityAll.parentId); //выведение подчиненных и начальника
                 }
             }
         };
 
-        // переход на предыдущего персонажа
+        var prev = _$('#prev'); // переход на предыдущего персонажа
         prev.onclick = function () {
             for (i = 0; i < military.length; i++) {
                 var priority = _$('#priority' + military[i].id);
                 if (priority.classList.contains('hidden') === false) {
-                    currentId = i;
-                    var result = checkForPrevSibling(currentId);
-                    if (result[0]) {
+                    var result = checkForPrevSibling(i);
+                    if (result) {
                         priority.classList.add('hidden');
-                        result[0].classList.remove('hidden');
-                        presenceOfChildren(result[1]);
+                        outputOfChildren(result);
                         break;
                     } else {
                         break;
@@ -433,17 +337,15 @@ window.onload = function () {
             }
         };
 
-        //переход на следующего персонажа
+        var next = _$('#next'); //переход на следующего персонажа
         next.onclick = function () {
             for (i = 0; i < military.length; i++) {
                 var priority = _$('#priority' + military[i].id);
                 if (priority.classList.contains('hidden') === false) {
-                    currentId = i;
-                    var result = checkForNextSibling(currentId);
-                    if (result[0]) {
+                    var result = checkForNextSibling(i);
+                    if (result) {
                         priority.classList.add('hidden');
-                        result[0].classList.remove('hidden');
-                        presenceOfChildren(result[1]);
+                        outputOfChildren(result);
                         break;
                     } else {
                         break;
@@ -454,28 +356,45 @@ window.onload = function () {
     }
 
     function mainScreen() {
+        for (var i = 0; i < military.length; i++) {
+            _$('#priority' + military[i].id).classList.add('hidden');
+        }
+        var min = Math.min.apply(null, parentArray);
+        basePriority(min); //проверка базовых элементов
+        outputOfChildren(min); //выведение подчиненных и начальника
+    }
+
+    function counter() {
         for (i = 0; i < military.length; i++) {
-            var base = _$('#priority0'),
-                dataBase = base.dataset;
-            var priority = _$('#priority' + military[i].id);
-            var person = _$('#soldier' + military[i].id),
-                dataPerson = person.dataset;
-            var back = _$('#back');
-            var prev = _$('#prev');
-            var next = _$('#next');
-            var min = Math.min.apply(null, parentArray);
+            var numberOfChildren = _$('#length' + military[i].id);
+            numberOfChildren.innerHTML = countPerson(military[i].id);
+            var indent = _$('#indent' + military[i].id);
+            if (numberOfChildren.innerHTML === '0') {
+                indent.classList.add('hidden');
+            }
+        }
+    }
+
+    //функция проверки базовых элементов
+    function basePriority(index) {
+        _$('#priority' + military[index].id).classList.add('hidden');
+        var base = _$('#priority0');
+        var back = _$('#back');
+        var prev = _$('#prev');
+        var next = _$('#next');
+        var min = Math.min.apply(null, parentArray);
+        if (parentArray[index] === min
+            && base.classList.contains('hidden') === false) {
             base.classList.add('hidden');
-            priority.classList.add('hidden');
-            person.classList.add('hidden');
-            if (dataBase.parentId === String(min - 1)) {
-                base.classList.remove('hidden');
-                back.classList.add('hidden');
-                prev.classList.add('hidden');
-                next.classList.add('hidden');
-            }
-            if (dataPerson.parentId === String(min)) {
-                person.classList.remove('hidden');
-            }
+            back.classList.remove('hidden');
+            prev.classList.remove('hidden');
+            next.classList.remove('hidden');
+        } else if (parentArray[index] === min
+            && base.classList.contains('hidden')) {
+            base.classList.remove('hidden');
+            back.classList.add('hidden');
+            prev.classList.add('hidden');
+            next.classList.add('hidden');
         }
     }
 
@@ -488,52 +407,39 @@ window.onload = function () {
                 counter += countPerson(military[i].id);
             }
         }
-        console.log(counter);
         return counter;
     }
 
-    //функция проверки наличия подчиненных
-    function presenceOfChildren(thisId) {
-        var indent = _$('#indent' + military[thisId].id);
-        var priority = _$('#priority' + military[thisId].id),
-            dataPriority = priority.dataset;
-        if (indent.classList.contains('hidden')
-            && priority.classList.contains('hidden') === false) {
-            for (i = 0; i < military.length; i++) {
-                var personThis = _$('#soldier' + military[i].id);
-                personThis.classList.add('hidden');
+    //функция выведения подчиненных и начальника
+    function outputOfChildren(thisId) {
+        for (var i = 0; i < military.length; i++) {
+            var priorityThis = _$('#priority' + military[i].id),
+                dataPriorityThis = priorityThis.dataset;
+            var personThis = _$('#soldier' + military[i].id),
+                dataPersonThis = personThis.dataset;
+            personThis.classList.add('hidden');
+            if (dataPersonThis.parentId === String(thisId)) {
+                personThis.classList.remove('hidden');
             }
-        } else {
-            var chief = Number(dataPriority.parentId);
-            var subordinate = military[thisId].id;
-            for (i = 0; i < military.length; i++) {
-                personThis = _$('#soldier' + military[i].id);
-                var dataPersonThis = personThis.dataset;
-                if (dataPriority.parentId === String(chief)) {
-                    personThis.classList.add('hidden');
-                    if (dataPersonThis.parentId === String(subordinate)) {
-                        personThis.classList.remove('hidden');
-                    }
-                }
+            if (dataPriorityThis.id === String(thisId)) {
+                priorityThis.classList.remove('hidden');
             }
         }
     }
 
     //Ищет есть ли передыдущий элемент в списке данного уровня
     function checkForPrevSibling(currentId) {
-        for (i = military.length - 1; i >= 0; i--) {
+        for (var i = military.length - 1; i >= 0; i--) {
             if (i < currentId) {
                 if (military[currentId].parent === parentArray[i]) {
-                    var personId = i;
-                    return [_$('#priority' + military[i].id), personId];
+                    return military[i].id;
                 }
             }
         }
         for (i = military.length - 1; i >= currentId; i--) {
             if (i !== currentId) {
                 if (military[currentId].parent === parentArray[i]) {
-                    personId = i;
-                    return [_$('#priority' + military[i].id), personId];
+                    return military[i].id;
                 }
             }
         }
@@ -542,19 +448,17 @@ window.onload = function () {
 
     //Ищет есть ли следующий элемент в списке данного уровня
     function checkForNextSibling(currentId) {
-        for (i = currentId; i < military.length; i++) {
+        for (var i = currentId; i < military.length; i++) {
             if (i > currentId) {
                 if (military[currentId].parent === parentArray[i]) {
-                    var personId = i;
-                    return [_$('#priority' + military[i].id), personId];
+                    return military[i].id;
                 }
             }
         }
         for (i = 0; i < currentId; i++) {
             if (i !== currentId) {
                 if (military[currentId].parent === parentArray[i]) {
-                    personId = i;
-                    return [_$('#priority' + military[i].id), personId];
+                    return military[i].id;
                 }
             }
         }
